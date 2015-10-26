@@ -1,0 +1,452 @@
+<!doctype html>
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<html lang="">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="msapplication-tap-highlight" content="no">
+	<meta name="generator" content="Polymer Starter Kit" />
+	<title>Retour Vers Le Futur Soundboard</title>
+	<!-- Place favicon.ico in the `app/` directory -->
+
+	<!-- Chrome for Android theme color -->
+	<meta name="theme-color" content="#2E3AA1">
+
+	<!-- Web Application Manifest -->
+	<link rel="manifest" href="manifest.json">
+
+	<!-- Tile color for Win8 -->
+	<meta name="msapplication-TileColor" content="#3372DF">
+
+	<!-- Add to homescreen for Chrome on Android -->
+	<meta name="mobile-web-app-capable" content="yes">
+	<meta name="application-name" content="PSK">
+	<link rel="icon" sizes="192x192" href="images/touch/chrome-touch-icon-192x192.png">
+
+	<!-- Add to homescreen for Safari on iOS -->
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-title" content="Polymer Starter Kit">
+	<link rel="apple-touch-icon" href="images/touch/apple-touch-icon.png">
+
+	<!-- Tile icon for Win8 (144x144) -->
+	<meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
+
+	<!-- build:css styles/main.css -->
+	<link rel="stylesheet" href="styles/main.css">
+	<!-- endbuild-->
+
+	<!-- build:js bower_components/webcomponentsjs/webcomponents-lite.min.js -->
+	<script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+	<!-- endbuild -->
+    <script src="js/jquery-2.1.4.min.js"></script>
+
+	<!-- will be replaced with elements/elements.vulcanized.html -->
+	<link rel="import" href="elements/elements.html">
+	<!-- endreplace-->
+
+	<!-- For shared styles, shared-styles.html import in elements.html -->
+	<style is="custom-style" include="shared-styles"></style>
+
+	<link rel="import" href="bower_components/iron-icons/iron-icons.html">
+    <link rel="import" href="bower_components/iron-icons/communication-icons.html">
+    <link rel="import" href="bower_components/iron-icons/maps-icons.html">
+    <link rel="import" href="bower_components/iron-icons/social-icons.html">
+    <link rel="import" href="bower_components/iron-icons/av-icons.html">
+    <link rel="import" href="bower_components/iron-icons/image-icons.html">
+    <link rel="import" href="bower_components/iron-icons/hardware-icons.html">
+    <link rel="import" href="bower_components/iron-flex-layout/iron-flex-layout.html">
+
+    <link rel="import" href="bower_components/iron-flex-layout/classes/iron-flex-layout.html">
+
+    <link rel="import" href="bower_components/paper-button/paper-button.html">
+    <link rel="import" href="bower_components/paper-card/paper-card.html">
+    <link rel="import" href="bower_components/paper-input/paper-input.html">
+    <link rel="import" href="bower_components/paper-drawer-panel/paper-drawer-panel.html">
+    <link rel="import" href="bower_components/paper-header-panel/paper-header-panel.html">
+    <link rel="import" href="bower_components/paper-drawer-panel/paper-drawer-panel.html">
+    <link rel="import" href="bower_components/paper-toolbar/paper-toolbar.html">
+    <link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html">
+ 	<link rel="import" href="bower_components/paper-scroll-header-panel/paper-scroll-header-panel.html">
+ 	<link rel="import" href="bower_components/paper-item/paper-item.html">
+ 	<link rel="import" href="bower_components/paper-item/paper-item-body.html">
+ 	<link rel="import" href="bower_components/paper-item/paper-icon-item.html">
+ 	<link rel="import" href="bower_components/paper-slider/paper-slider.html">
+ 	<link rel="import" href="bower_components/paper-tooltip/paper-tooltip.html">
+ 	<link rel="import" href="bower_components/paper-fab/paper-fab.html">
+
+ 	<link rel="import" href="sound-board.html">
+
+
+ 	<style is="custom-style">
+ 		html{
+			height: 100%;
+			margin: 0;
+			background-color: #E5E5E5;
+			-webkit-tap-highlight-color: rgba(0,0,0,0);
+  			-webkit-tap-highlight-color: transparent; /* For some Androids */
+		}
+
+		body {
+		  	background: #fafafa;
+		  	font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+		  	color: #767270;
+		}
+
+		
+		paper-material, paper-card {
+		    border-radius: 2px;
+		    /*height: 100%;*/
+		    
+		    width: calc(98.66% - 16px);
+		    margin: 16px auto;
+		    padding: 16px 0 16px 0;
+		    background: white;
+	 	}
+		
+	 	paper-card {
+		    /*display: initial;*/
+		    margin: 16px;
+		    padding: 0;
+	 	}
+		
+	 	.avatar {
+			display: inline-block;
+			height: 64px;
+			width: 64px;
+			border-radius: 50%;
+			/*background: var(--paper-pink-500);
+			color: white;*/
+			line-height: 64px;
+			font-size: 60px;
+			text-align: center;
+	    }
+
+	    .big_icon {
+			--iron-icon-height: 40px;
+			--iron-icon-width: 40px;
+		}
+
+	    .fancy .title {
+			position: absolute;
+			top: 30px;
+			left: 100px;
+			color: rgb(51, 51, 51); /*var(--paper-indigo-500);*/
+	    }
+	    
+	    .fancy .big {
+			font-size: 28px;
+			padding: 8px 0 16px;
+			color: #767270;
+			font-weight: 500;
+	    }
+
+	    .fancy .medium_plus {
+			font-size: 20px;
+			margin-left: 84px;
+			padding-bottom: 8px;
+			font-weight: 500;
+	    }
+
+	    .fancy .medium {
+			font-size: 16px;
+			margin-left: 84px;
+			padding-bottom: 8px;
+			color: #5da4d9;
+	    }
+
+	    .fancy .small {
+	    	margin-left: 84px;
+	    	padding-bottom:10px;
+	    }
+
+	    .fancy section {
+		    border-bottom: rgba(0,0,0,0.1) solid 1px;
+		    margin-bottom: 10px;
+		}
+
+		.fancy section:last-child {
+		    border-bottom: 0;
+		    margin-bottom: -10px;
+		}
+		
+
+	    .content {
+			padding: 8px;
+	    }
+
+	    
+	    #info a, #info a:visited {
+			color: #000;
+		}
+
+		#drawer iron-icon {
+		    margin-right: 33px;
+		}
+		  
+		#drawer .selected {
+		    background: #eee;
+		}
+		  
+		/* core-icon should probably use this by default */
+		#info iron-icon div {
+		    background-size: cover !important;
+		}
+		
+		#info paper-item-body {
+		    border-bottom: rgba(0,0,0,0.1) solid 1px;
+		}
+
+
+		#info paper-item-body {
+		  	--paper-item-body-secondary-color: #ffffff;
+		  	color: #ffffff;
+		  	--paper-item-body-secondary:{
+		  		opacity: 0.8;
+    			font-weight: 300;
+		  	};
+		}
+
+		#info paper-item-body {
+		  	--paper-item-body-secondary:{
+		  		opacity: 0.8;
+    			font-weight: 300;
+		  	};
+		}
+
+		#info paper-item-body a {
+		  	color: #ffffff !important;
+		}
+
+		
+		#info iron-icon {
+			color: white;
+		}
+
+		#info paper-card {
+			background-color: #2196f3;
+		}
+
+		#drawer section, #info section {
+		    padding-bottom: 8px;
+		    padding-top: 17px;
+		}
+		
+		
+		#drawer h1 {
+			font-size: 1.3em;
+			margin-left: 16px;
+			font-weight: 500;
+			height: 1.3em;
+			margin-top: 20px;
+			margin-bottom: 20px;
+		}
+
+		#drawer h2 {
+			font-size: 1em;
+			margin-left: 16px;
+			font-weight: 500;
+			height: 1.3em;
+			margin-top: 20px;
+			margin-bottom: 20px;
+		}
+
+		#drawer paper-toolbar {
+			background-image: url(img/retour_vers_le_futur.jpg);
+			background-position:50% 10%;
+			background-size: 100%;
+		}
+
+		@media (max-width: 1020px) {
+			#main_layout {
+				@apply(--layout-wrap);
+			}
+
+			#info {
+				width: 100%;
+			}
+		}
+
+		/*
+		paper-drawer-panel {
+			--paper-drawer-panel-left-drawer-container: {
+		    	background-color: #2196f3;
+		  	};
+		}
+		*/
+		paper-toolbar {
+			--paper-toolbar-background: #2196f3;
+		}
+
+		#info paper-slider {
+			--paper-slider-knob-color: white;
+			--paper-slider-active-color: white;
+			margin-left: -15px;
+			margin-top: -10px;
+			margin-bottom: -5px;
+			width: calc(100% - 18px);
+		}
+
+		#interest .horizontal iron-icon {
+			color: #5da4d9;
+		}
+
+		#interest .horizontal {
+			margin-top: 20px;
+			margin-bottom: 10px;
+			text-align: center;
+		}
+
+		#player {
+		    height:0;
+		    width:0;
+		}
+
+		.flex div {
+			width: 95%;
+			text-overflow: ellipsis;
+			white-space:nowrap;
+			overflow:hidden;
+			margin: auto;
+			padding-bottom: 5px;
+	    }
+
+        .flex paper-fab {
+			paper-fab-background: var(--paper-light-blue-500);
+			paper-fab-keyboard-focus-background: var(--paper-light-blue-900);
+			/*background-color: var(--paper-light-blue-500);*/
+	    }
+
+ 	</style>
+
+</head>
+
+<body unresolved class="fullbleed layout vertical">
+	<div class="appCordova">
+		<span id="browser-sync-binding"></span>
+		<template is="dom-bind" id="app">
+
+			<paper-drawer-panel id="paperDrawerPanel">
+				<!-- Drawer Scroll Header Panel -->
+				<paper-scroll-header-panel drawer fixed>
+
+					<!-- Drawer Toolbar -->
+					<paper-toolbar class="tall">
+				    </paper-toolbar>
+
+					<!-- Drawer Content -->
+					<paper-menu class="list" attr-for-selected="data-route" selected="[[route]]">
+						<a data-route="BTTF1" href="/android_asset/www/index.html" on-click="onDataRouteClick">
+							<iron-icon icon="home"></iron-icon>
+							<span>Retour Vers Le Futur</span>
+						</a>
+
+						<a data-route="BTTF2" href="/BTTF2" on-click="onDataRouteClick">
+							<iron-icon icon="info"></iron-icon>
+							<span>Retour Vers Le Futur 2</span>
+						</a>
+
+						<a data-route="BTTF3" href="/BTTF3" on-click="onDataRouteClick">
+							<iron-icon icon="mail"></iron-icon>
+							<span>Retour Vers Le Futur 3</span>
+						</a>
+					</paper-menu>
+				</paper-scroll-header-panel>
+
+				<!-- Main Area -->
+				<paper-scroll-header-panel main condenses keep-condensed-header>
+
+					<!-- Main Toolbar -->
+					<paper-toolbar id="mainToolbar" class="tall">
+						<paper-icon-button id="paperToggle" icon="menu" paper-drawer-toggle></paper-icon-button>
+						<span class="flex"></span>
+
+						<!-- Application name -->
+						<div class="middle middle-container center horizontal layout">
+							<div class="app-name">Retour Vers Le Futur Soundboard</div>
+						</div>
+
+						<!-- Application sub title -->
+						<div class="bottom bottom-container center horizontal layout">
+							<div class="bottom-title paper-font-subhead">The future of the web today</div>
+						</div>
+
+					</paper-toolbar>
+
+					<!-- Main Content -->
+					<div class="content">
+						<iron-pages attr-for-selected="data-route" selected="{{route}}">
+
+							<section data-route="BTTF1">
+								<sound-board size="1" nom="BTTF1"></sound-board>
+							</section>
+
+							<section data-route="BTTF2">
+								 <sound-board size="1" nom="BTTF2"></sound-board>
+							</section>
+
+
+							<section data-route="BTTF3">
+								<sound-board size="1" nom="BTTF3"></sound-board>
+							</section>
+
+							<section data-route="user-info">
+								<paper-material elevation="1">
+									<h2 class="page-title">
+									User:<span>{{params.name}}</span>
+									</h2>
+									<div>This is <span>{{params.name}}</span>'s section</div>
+								</paper-material>
+							</section>
+						</iron-pages>
+					</div>
+				</paper-scroll-header-panel>
+			</paper-drawer-panel>
+
+			<!-- Uncomment next block to enable Service Worker support (1/2) -->
+			<!--
+			<paper-toast id="caching-complete"
+									 duration="6000"
+									 text="Caching complete! This app will work offline.">
+			</paper-toast>
+
+			<platinum-sw-register auto-register
+														clients-claim
+														skip-waiting
+														on-service-worker-installed="displayInstalledToast">
+				<platinum-sw-cache default-cache-strategy="fastest"
+													 cache-config-file="cache-config.json">
+				</platinum-sw-cache>
+			</platinum-sw-register>
+			-->
+
+		</template>
+	</div>
+
+	<!-- build:js scripts/app.js -->
+	<script>
+
+	</script>
+
+	<script type="text/javascript" src="cordova.js"></script>
+	<script type="text/javascript" src="js/index.js"></script>
+	<script type="text/javascript">
+            appCordova.initialize();
+    </script>
+	<!-- endbuild
+	-->
+	<script src="scripts/app.js"></script>
+</body>
+
+</html>
