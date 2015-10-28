@@ -235,48 +235,80 @@ Module affichant des cartes pour mon cv
   <script>
 
   //var getaudio = $('#player')[0];
-       /* Get the audio from the player (using the player's ID), the [0] is necessary */
-       var mouseovertimer;
-       /* Global variable for a timer. When the mouse is hovered over the speaker it will start playing after hovering for 1 second, if less than 1 second it won't play (incase you accidentally hover over the speaker) */
-       var audiostatus = 'off';
-       /* Global variable for the audio's status (off or on). It's a bit crude but it works for determining the status. */
+  /* Get the audio from the player (using the player's ID), the [0] is necessary */
+  var mouseovertimer;
+  /* Global variable for a timer. When the mouse is hovered over the speaker it will start playing after hovering for 1 second, if less than 1 second it won't play (incase you accidentally hover over the speaker) */
+  var audiostatus = 'off';
+  /* Global variable for the audio's status (off or on). It's a bit crude but it works for determining the status. */
 
-       $(document).on('touchstart', '.speaker', function() {
+  $(document).on('click', '.speaker', function() {
 
-         /* Touchend is necessary for mobile devices, click alone won't work */
-         var idAudio = this.id + '_mp3';
-         //alert(idAudio);    //Debbuggage
-         var getaudio = document.getElementById(idAudio);
-         
-         getaudio.onended = function() {
-        $('.speaker').removeClass('speakerplay');
-          /*When the audio has finished playing, remove the class speakerplay*/
-          audiostatus = 'off';
-       };
+    /* Touchend is necessary for mobile devices, click alone won't work */
+    var idAudio = this.id;
 
-         if (!$('.speaker').hasClass("speakerplay")) {
-           if (audiostatus == 'off') {
-             $('.speaker').addClass('speakerplay');
-             getaudio.load();
-             getaudio.play();
-             audiostatus = 'on';
-             return false;
-           } else if (audiostatus == 'on') {
-             $('.speaker').addClass('speakerplay');
-             getaudio.play()
-           }
-         } else if ($('.speaker').hasClass("speakerplay")) {
-           getaudio.pause();
-           console.log("pause done");
-           getaudio.load();
-           console.log("load done");
-           $('.speaker').removeClass('speakerplay');
-           console.log("remove done");
-           console.log($('.speaker').hasClass("speakerplay"));
-           audiostatus = 'on';
-         }
+    var idAudioPause = idAudio;
+    var patt = new RegExp("_pause");
+    if (patt.test(idAudio)) {
+      //alert(idAudio);
+      idAudio = idAudio.replace("_pause","");
+      //alert(idAudio);
+    };
 
-       });
+    var idAudioPlay = idAudio;
+
+    idAudio = idAudio + '_mp3';
+
+    //alert(idAudio);    //Debbuggage
+    var getaudio = document.getElementById(idAudio);
+
+    var obj = document.getElementById(idAudioPause+'_pause');
+    var obj2 = document.getElementById(idAudioPause);
+    var obj3 = document.getElementById(idAudioPlay);
+
+    getaudio.onended = function() {
+      // $('.speaker').removeClass('speakerplay');
+      obj.className = obj.className.replace( /(?:^|\s)speakerplay(?!\S)/g , '' );
+       obj.className +=' cache';
+      obj2.className = obj2.className.replace( /(?:^|\s)cache(?!\S)/g , '' );
+      /*When the audio has finished playing, remove the class speakerplay*/
+      audiostatus = 'off';
+    };
+
+    
+
+    if (!$('.speaker').hasClass("speakerplay")) {
+      if (audiostatus == 'off') {
+        
+        obj.className +=' speakerplay';
+        getaudio.load();
+        obj2.className +=' cache';
+
+        obj.className = obj.className.replace( /(?:^|\s)cache(?!\S)/g , '' );
+        getaudio.play();
+        audiostatus = 'on';
+        return false;
+      } else if (audiostatus == 'on') {
+          obj.className +=' speakerplay';
+          obj2.className +=' cache';
+          obj.className = obj.className.replace( /(?:^|\s)cache(?!\S)/g , '' );
+          getaudio.play();
+      }
+      
+    } else if ($('.speaker').hasClass("speakerplay")) {
+      getaudio.pause();
+
+      getaudio.load();
+
+      obj2.className = obj2.className.replace( /(?:^|\s)speakerplay(?!\S)/g , '' );
+      obj2.className +=' cache';
+      obj3.className = obj3.className.replace( /(?:^|\s)cache(?!\S)/g , '' );
+
+      audiostatus = 'on';
+    }
+
+   });
+
+
     (function() {
 
       function getSomething(){
@@ -325,6 +357,7 @@ Module affichant des cartes pour mon cv
             '<div class=\"flex\">' +
               '<div>'+json[this.nom][key]+'</div>' +
                 '<paper-fab icon=\"av:play-arrow\" class=\"speaker\" id=\"'+key+'\"></paper-fab>' +
+                '<paper-fab icon=\"av:pause\" class=\"speaker cache\" id=\"'+key+'_pause\"></paper-fab>' +
                 '<audio class=\"player\" id=\"'+key+'_mp3\">' +
                   '<source src=\"mp3/'+key+'.mp3\" type=\"audio/mp3\" />' +
                 '</audio>' +

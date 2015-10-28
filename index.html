@@ -73,7 +73,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <link rel="import" href="bower_components/paper-button/paper-button.html">
     <link rel="import" href="bower_components/paper-card/paper-card.html">
     <link rel="import" href="bower_components/paper-input/paper-input.html">
-    <link rel="import" href="bower_components/paper-drawer-panel/paper-drawer-panel.html">
     <link rel="import" href="bower_components/paper-header-panel/paper-header-panel.html">
     <link rel="import" href="bower_components/paper-drawer-panel/paper-drawer-panel.html">
     <link rel="import" href="bower_components/paper-toolbar/paper-toolbar.html">
@@ -322,10 +321,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 			padding-bottom: 5px;
 	    }
 
-        .flex paper-fab {
-			paper-fab-background: var(--paper-light-blue-500);
-			paper-fab-keyboard-focus-background: var(--paper-light-blue-900);
-			/*background-color: var(--paper-light-blue-500);*/
+	    paper-fab {
+	    	background: var(--paper-light-blue-500);
+	    }
+
+	    .cache {
+	    	display: none;
 	    }
 
  	</style>
